@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('welcome');
 });
+route::get('/testconnect', 'DemoController@testconnect')->name('testconnect');
