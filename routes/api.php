@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+	Route::prefix('v1')->namespace('Api')->group(function () {
+		// Controllers Within The "App\Http\Controllers\Admin" Namespace
+		Route::get('/users','UserController@index');
+		Route::get('/users/{id}','UserController@getUser');
+		//Route::get('/')
+	});
+
+

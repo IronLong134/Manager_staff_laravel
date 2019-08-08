@@ -5,16 +5,18 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use Notifiable;
-
+	  use SoftDeletes;
+		protected $table="users";
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+
     protected $fillable = [
         'name', 'email', 'password',
     ];
@@ -36,4 +38,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function manager(){
+			return $this->hasOne('App\Project');
+		}
+		public function project(){
+    	return $this->belongsTo('App\Project');
+		}
+		public function role(){
+    	return $this->belongsTo('App\Role');
+		}
+		public function university(){
+    	return $this->belongsTo('App\University');
+		}
+		public function skill(){
+    	return $this->belongsToMany('App\Skill');
+		}
+		public function check_ins(){
+    	return $this->hasMany('App\CheckIn');
+		}
 }

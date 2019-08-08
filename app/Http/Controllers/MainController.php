@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class DemoController extends Controller
+class MainController extends Controller
 {
     //
 	public function testconnect() {
@@ -19,5 +20,11 @@ class DemoController extends Controller
 		} catch (\Exception $e) {
 			die('Could not open connection to database server.  Please check your configuration.');
 		}
+	}
+	public function list(){
+
+		$users=User::paginate(3);
+		//dd( $user3)
+		return view('user.list_users')->with('users',$users);
 	}
 }
